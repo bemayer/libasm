@@ -6,27 +6,42 @@
 /*   By: bmayer <mayer.benoit@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 18:46:10 by bmayer            #+#    #+#             */
-/*   Updated: 2021/02/28 23:25:15 by bmayer           ###   ########.fr       */
+/*   Updated: 2021/03/16 22:43:27 by bmayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
 
-void ok(void)
+void	ok(void)
 {
 	printf("\033[1;32m");
 	printf("OK\n");
 	printf("\033[0m");
 }
 
-void nok(void)
+void	nok(void)
 {
 	printf("\033[1;31m");
 	printf("NOK\n");
 	printf("\033[0m");
 }
 
-int check_strcmp()
+int		check_read()
+{
+	char	dest[6];
+	int		fd;
+	int		ret;
+
+	ret = 1;
+	fd = open("testread.txt", O_RDONLY);
+	ft_read(fd, dest, 35);
+	if (ft_strcmp(dest, "hello"))
+		ret = 0;
+	close (fd);
+	return (ret);
+}
+
+int		check_strcmp()
 {
 	char *test[6];
 	int i = 0;
@@ -63,7 +78,7 @@ int check_strcmp()
 	return (1);
 }
 
-int check_strcpy()
+int		check_strcpy()
 {
 	char src[10] = "Hello";
 	char dest[10];
@@ -75,7 +90,7 @@ int check_strcpy()
 	return (1);
 }
 
-int check_strdup()
+int		check_strdup()
 {
 	char src[8] = "Hello !";
 	char *dest = ft_strdup(src);
@@ -87,7 +102,7 @@ int check_strdup()
 	return (1);
 }
 
-int check_strlen()
+int		check_strlen()
 {
 	char *test[6];
 	int i = 0;
@@ -108,8 +123,16 @@ int check_strlen()
 	return (1);
 }
 
-int main(void)
+int		check_write()
 {
+	write(1, "hello", 6);
+}
+
+int		main(void)
+{
+	printf("\nCheck read\n");
+	check_read() ? ok() : nok();
+
 	printf("\nCheck strcmp\n");
 	check_strcmp() ? ok() : nok();
 
@@ -121,4 +144,7 @@ int main(void)
 
 	printf("\nCheck strlen\n");
 	check_strlen() ? ok() : nok();
+
+	printf("\nCheck write\n");
+	check_write() ? ok() : nok();
 }
