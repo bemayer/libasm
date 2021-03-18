@@ -6,6 +6,7 @@ ft_read:
 	syscall
 	cmp		rax, 0
 	jl		.err
+	mov		rax, rdx
 	jmp		.end
 
 .err:
