@@ -32,4 +32,4 @@ fclean:		clean
 re:			fclean all
 
 test:		re $(OBJS)
-			gcc -Wall -Wextra -Werror -o test main.c $(NAME) -fsanitize=address -g && ./test
+			gcc -Wall -Wextra -Werror -o test main.c $(NAME) -fsanitize=address && ./test
