@@ -17,7 +17,7 @@ ft_list_remove_if:
 .loop:
 	cmp		r12, 0
 	je		.end
-	mov		rdi, QWORD [r12 + 8]
+	mov		rdi, QWORD [r12]
 	mov		rsi, r13
 	call	r14
 	cmp		eax, 0
@@ -26,7 +26,7 @@ ft_list_remove_if:
 	jmp		.next
 
 .found:
-	mov		rdx, QWORD [r12]
+	mov		rdx, QWORD [r12 + 8]
 	cmp		rbp, 0
 	jne		.remove
 
@@ -35,16 +35,16 @@ ft_list_remove_if:
 	jmp		.free
 
 .remove:
-	mov		QWORD [rbp], rdx
+	mov		QWORD [rbp + 8], rdx
 	jmp		.free
 
 .free:
-	mov		rdi, QWORD [r12 + 8]
+	mov		rdi, QWORD [r12]
 	call	r15
 	jmp		.next
 
 .next:
-	mov		r12, QWORD [r12]
+	mov		r12, QWORD [r12 + 8]
 	jmp		.loop
 
 .end:

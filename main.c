@@ -6,7 +6,7 @@
 /*   By: bmayer <mayer.benoit@gmail.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 13:22:21 by bmayer            #+#    #+#             */
-/*   Updated: 2021/04/21 23:21:29 by bmayer           ###   ########.fr       */
+/*   Updated: 2021/04/22 01:14:54 by bmayer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 
 typedef struct		s_list
 {
-	struct s_list	*next;
 	void			*data;
+	struct s_list	*next;
 }					t_list;
 
 int 		ft_strcmp(const char *s1, const char *s2);
@@ -93,7 +93,7 @@ void	ft_strcmp_diff(char *s1, char *s2)
 	cmp1 = ft_strcmp(s1, s2);
 	cmp2 = strcmp(s1, s2);
 	printf("s1 = |%s|, s2 = |%s|\nft_strcmp = %i, strcmp = %i\n", s1, s2, cmp1, cmp2);
-	if (cmp1 != cmp2)
+	if ((cmp1 < 0 && cmp2 > 0) || (cmp1 > 0 && cmp2 < 0))
 		printf("ft_strcmp FAILURE\n");
 	else
 		printf("ft_strcmp SUCCESS\n");
@@ -362,7 +362,6 @@ void	ft_list_push_front_test(void)
 	while (*t)
 	{
 		temp2 = *t;
-		*t = (*t)->next;
 		temp3 = (char *)temp2->data;
 		if (str[3-i] != temp3)
 			fail = 1;
@@ -371,6 +370,7 @@ void	ft_list_push_front_test(void)
 			printf("->");
 		else
 			printf("\n");
+		*t = (*t)->next;
 		free(temp2);
 		i++;
 	}
@@ -441,6 +441,8 @@ void	ft_list_sort_test(void)
 	int		curr;
 	int		fail = 0;
 
+	begin_list = &temp;
+	ft_list_sort(begin_list,0);
 	while (i < 10)
 	{
 		lst[i].next = temp;
@@ -460,6 +462,7 @@ void	ft_list_sort_test(void)
 	}
 	begin_list = &temp;
 	ft_list_sort(begin_list, ft_intcmp);
+
 	temp = *begin_list;
 	while (temp)
 	{
