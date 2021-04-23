@@ -8,13 +8,13 @@ ft_read:
 	syscall
 	cmp		rax, 0
 	jl		.err
-	mov		rax, rdx
 	jmp		.end
 
 .err:
 	neg		rax
-	mov		rdi, rax
+	push		rax
 	call	__errno_location wrt ..plt
+	pop		rdi
 	mov		[rax], rdi
 	mov		rax, -1
 

@@ -1,4 +1,5 @@
-global ft_list_remove_if
+global		ft_list_remove_if
+extern		free
 
 ft_list_remove_if:
 	push	rbx	; begin list
@@ -23,7 +24,8 @@ ft_list_remove_if:
 	cmp		eax, 0
 	je		.found
 	mov		rbp, r12
-	jmp		.next
+	mov		r12, QWORD [r12 + 8]
+	jmp		.loop
 
 .found:
 	mov		rdx, QWORD [r12 + 8]
@@ -41,10 +43,9 @@ ft_list_remove_if:
 .free:
 	mov		rdi, QWORD [r12]
 	call	r15
-	jmp		.next
-
-.next:
+	mov		rdi, r12
 	mov		r12, QWORD [r12 + 8]
+	call	free wrt ..plt
 	jmp		.loop
 
 .end:

@@ -338,7 +338,6 @@ void	ft_atoi_base_test(void)
 	printf("\n --->>> Test 5 <<<--- \n");
 	ft_atoi_base_diff("     \t\n\v\f\r-+--fiona_shrek", "poneyvif", -3978);
 	printf("\n++++++++++++++++++++++++++++++++\n");
-
 }
 
 void	ft_list_push_front_test(void)
@@ -486,11 +485,11 @@ void	ft_list_sort_test(void)
 void	ft_list_remove_if_test(void)
 {
 	int		i = 0;
-	int		j = 0;
-	t_list	lst[10];
+	t_list	*lst[10];
 	int		*nb_temp;
 	void	*nxt_temp = 0;
 	t_list	*temp;
+	t_list	*previous;
 	int		*data;
 	t_list	**begin_list;
 	int		fail = 0;
@@ -498,22 +497,15 @@ void	ft_list_remove_if_test(void)
 
 	while (i < 10)
 	{
-		if (!(nb_temp = (int *)malloc(sizeof(int))))
-		{
-			while (j < i)
-			{
-				free(lst[j].data);
-				j++;
-			}
-			return;
-		}
+		lst[i] = malloc(sizeof(t_list));
+		nb_temp = (int *)malloc(sizeof(int));
 		if ((i != 3) & (i != 5) & (i != 8) & (i != 9))
 			*nb_temp = 0;
 		else
 			*nb_temp = 1;
-		lst[i].next = nxt_temp;
-		lst[i].data = nb_temp;
-		nxt_temp = &lst[i];
+		lst[i]->next = nxt_temp;
+		lst[i]->data = nb_temp;
+		nxt_temp = lst[i];
 		i++;
 	}
 	temp = nxt_temp;
@@ -536,7 +528,9 @@ void	ft_list_remove_if_test(void)
 		if (*data)
 			fail = 1;
 		free (data);
+		previous = temp;
 		temp = temp->next;
+		free(previous);
 		if (temp)
 			printf("->");
 		else

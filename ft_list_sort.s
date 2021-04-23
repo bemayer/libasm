@@ -8,6 +8,8 @@ ft_list_sort:
 	cmp		rdi, 0
 	je		.end
 	mov		r12, [rdi]
+	cmp		r12, 0
+	je		.end	
 	mov		r15, rsi
 	cmp		r15, 0
 	je		.end
