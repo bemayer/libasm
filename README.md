@@ -2,7 +2,7 @@
 
 ## Overview
 
-**libasm** is a library implemented in Assembly language, providing a collection of fundamental functions commonly used in the standard C library. This project serves as an exercise in low-level programming, focusing on performance optimization and a deeper understanding of system-level operations.
+**libasm** is a library implemented in x86 Assembly language, providing a collection of fundamental functions commonly used in the standard C library. This project serves as an exercise in low-level programming, focusing on performance optimization and a deeper understanding of system-level operations.
 
 ## Features
 
